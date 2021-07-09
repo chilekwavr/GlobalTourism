@@ -1,0 +1,16 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+@model GlobalTour.ViewModels.StartUpVM
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h4>Environment: @hostingEnv.EnvironmentName</h4>
+    <h4>Connection string: @Model.ConnectionString</h4>
+    <h4>Vault URL: @Model.VaultURL</h4>
+
+    <h4>Developer name: @Model.DeveloperName</h4>
+    <h4>Work history name: @Model.WHName</h4>
+
+</div>
