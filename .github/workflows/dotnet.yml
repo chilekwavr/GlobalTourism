@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: GlobalTourism
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+  workflow_dispatch:
+  
+env:
+  AZURE_WEBAPP_NAME: 'GlobalTourism'
+  AZURE_WEBAPP_PACKAGE_PATH: './published'
+  #NETCORE_VERSION: '5.0.x'
+ 
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    #strategy: 
+     # matrix: 
+     #   dotnet: [ '2.1.x', '3.1.x', '5.0.x' ]
+    
+    #name: build dotnet ${{ matrix.dotnet }} sample
+    name: build dotnet 
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup .Net Core 
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.301'
+
+      # restore
+      - name: Restore
+        run: dotnet restore
+
+       # build
+      - name: Build
+        run: dotnet build --no-restore -c Release
+        
+      # publish
+      - name: Publish app for deploy
+        run: dotnet publish --configuration Release --no-build --output ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+
+         # set .Net core
+      - name: deploy to Azure webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
+          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+          
+      - name: publish artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: webapp
+          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
