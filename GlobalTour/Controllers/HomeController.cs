@@ -5,6 +5,7 @@ using GlobalTour.Models;
 using GlobalTour.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,15 +18,19 @@ namespace GlobalTour.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGenericRepository<Developer> _repo;
-
-        public HomeController(ILogger<HomeController> logger, IGenericRepository<Developer> repo)
+        //private readonly IOptions<PositionOptions> _options;
+        PositionOptions _options;
+        public HomeController(ILogger<HomeController> logger, IGenericRepository<Developer> repo,IOptions<PositionOptions> options)
         {
             _logger = logger;
             _repo = repo;
+            //_options = options;
+            _options = options.Value;
         }
 
         public async Task<IActionResult> Index()
         {
+
             var developer = await _repo.GetByIdAsync(1);
             var developers = await _repo.GetAllAsync();
             var specification = new DeveloperWithAddressSpecification(1);
@@ -45,7 +50,8 @@ namespace GlobalTour.Controllers
                 ConnectionString = ConnectionStringFactory.GetConnectionString(),
                 VaultURL = envURL,
                 DeveloperName = dev.Name,
-                WHName = wHistory.Name
+                WHName = wHistory.Name,
+                PositionOptions = _options
             };
 
             return View(vm);

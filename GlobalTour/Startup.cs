@@ -1,4 +1,5 @@
 using ApplicationCore.Interfaces;
+using GlobalTour.Models;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,8 @@ namespace GlobalTour
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PositionOptions>(Configuration.GetSection(
+                                        PositionOptions.Position));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:GlobalTourismConnectionStr"]));
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             services.AddTransient<SeedData>();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobalTour.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,7 @@ namespace GlobalTour.ViewModels
 
         public string DeveloperName { get; set; }
         public string WHName { get; set; }
+
+        public PositionOptions PositionOptions { get; set; }
     }
 }
