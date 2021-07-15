@@ -57,7 +57,7 @@ namespace GlobalTour
             using (var scope = scopeFactory.CreateScope())
             {
                 var seeder = scope.ServiceProvider.GetService<SeedData>();
-                seeder.Seed();
+                seeder.Seed().Wait();
             }
         }
     }

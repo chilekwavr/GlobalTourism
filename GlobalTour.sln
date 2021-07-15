@@ -5,9 +5,13 @@ VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalTour", "GlobalTour\GlobalTour.csproj", "{96CC085B-D0A5-4C23-94EB-5E34F2DEF904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldTour.Infrastructure", "WorldTour.Infrastructure\WorldTour.Infrastructure.csproj", "{78882562-6C8D-40AD-B442-679BA4F5B06B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldTour.Infrastructure", "WorldTour.Infrastructure\WorldTour.Infrastructure.csproj", "{78882562-6C8D-40AD-B442-679BA4F5B06B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalTour.ApplicationCore", "GlobalTour.ApplicationCore\GlobalTour.ApplicationCore.csproj", "{09275D71-EF0A-423D-87FF-28EC66917ECC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalTour.ApplicationCore", "GlobalTour.ApplicationCore\GlobalTour.ApplicationCore.csproj", "{09275D71-EF0A-423D-87FF-28EC66917ECC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalTour.Services", "GlobalTour.Services\GlobalTour.Services.csproj", "{8DA4354D-9CAC-41D9-BEB4-3A1C51A3D7D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalTourAPI", "GlobalTourAPI\GlobalTourAPI.csproj", "{925DA7B7-8423-4B4A-99BB-99137456AE96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{09275D71-EF0A-423D-87FF-28EC66917ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09275D71-EF0A-423D-87FF-28EC66917ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09275D71-EF0A-423D-87FF-28EC66917ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA4354D-9CAC-41D9-BEB4-3A1C51A3D7D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA4354D-9CAC-41D9-BEB4-3A1C51A3D7D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA4354D-9CAC-41D9-BEB4-3A1C51A3D7D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA4354D-9CAC-41D9-BEB4-3A1C51A3D7D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

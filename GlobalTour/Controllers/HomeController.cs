@@ -2,10 +2,11 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Specification;
 using GlobalTour.Models;
+using GlobalTour.Services;
 using GlobalTour.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,28 +19,35 @@ namespace GlobalTour.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGenericRepository<Developer> _repo;
-        //private readonly IOptions<PositionOptions> _options;
-        PositionOptions _options;
-        public HomeController(ILogger<HomeController> logger, IGenericRepository<Developer> repo,IOptions<PositionOptions> options)
+        private readonly IDevelopersService _devService;
+
+        public HomeController(ILogger<HomeController> logger, IGenericRepository<Developer> repo, IDevelopersService devService)
         {
             _logger = logger;
             _repo = repo;
-            //_options = options;
-            _options = options.Value;
+            _devService = devService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-
             var developer = await _repo.GetByIdAsync(1);
             var developers = await _repo.GetAllAsync();
             var specification = new DeveloperWithAddressSpecification(1);
             //var specification = new DeveloperByIncomeSpecification();
             var developers2 = _repo.FindWithSpecificationPattern(specification);
 
+
             var dev = developers2.FirstOrDefault();
 
-            var wHistory = dev.WorkHistories.ToList()[0];
+            var wHistory = dev.WorkHistories.ToList();
+            var wH = wHistory[0];
+
+            var devServiceResult = _devService.GetDeveloperWithAddressById(1);
+
+            //TODO: get ID from email using filters
+            var result = PopulateDeveloperVM(1);
+
             var envURL = Environment.GetEnvironmentVariable("VaultUri");
             if(envURL==null)
             {
@@ -49,12 +57,20 @@ namespace GlobalTour.Controllers
             {
                 ConnectionString = ConnectionStringFactory.GetConnectionString(),
                 VaultURL = envURL,
-                DeveloperName = dev.Name,
-                WHName = wHistory.Name,
-                PositionOptions = _options
+                DeveloperName = result.Developer.Name,
+                WHName = result.WorkHistories[0].Name
             };
 
             return View(vm);
+        }
+
+        private StartUpVM PopulateDeveloperVM(int Id)
+        {
+            var developers = _devService.GetDeveloperWithAddressById(Id);
+            var vm = new StartUpVM();
+            vm.Developer = developers[0];
+            vm.WorkHistories = developers[0].WorkHistories.ToList();
+            return vm;
         }
 
         public IActionResult Privacy()

@@ -1,4 +1,4 @@
-﻿using GlobalTour.Models;
+﻿using ApplicationCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,8 @@ namespace GlobalTour.ViewModels
         public string DeveloperName { get; set; }
         public string WHName { get; set; }
 
-        public PositionOptions PositionOptions { get; set; }
+        public Developer Developer { get; set; }
+
+        public IReadOnlyList<WorkHistory> WorkHistories { get; set; }
     }
 }

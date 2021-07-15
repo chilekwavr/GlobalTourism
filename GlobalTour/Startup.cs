@@ -1,18 +1,24 @@
 using ApplicationCore.Interfaces;
-using GlobalTour.Models;
+using GlobalTour.Services;
+using GlobalTour.Services.Extensions;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+//using Microsoft.AspNetCore.Authentication.
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using WorldTour.Infrastructure;
 
 namespace GlobalTour
 {
@@ -28,12 +34,42 @@ namespace GlobalTour
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<PositionOptions>(Configuration.GetSection(
-                                        PositionOptions.Position));
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:GlobalTourismConnectionStr"]));
-            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
-            services.AddTransient<SeedData>();
+            services.AddIdentity();
+            services.AddAuthentication();
+            services.AddDbContext(Configuration); 
+            services.AddScopedServices();
+            services.AddTransientServices();
             services.AddControllersWithViews();
+
+            // services.AddIdentity<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:GlobalTourismConnectionStr"]));
+
+            //services.AddIdentity();
+            //<StoreUser, IdentityRole>(cfg =>
+            //{
+            //    cfg.User.RequireUniqueEmail = true;
+            //})
+            //.AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddAuthentication();
+            //.AddCookie()
+            //.AddJwtBearer(cfg =>
+            //{
+            //    cfg.TokenValidationParameters = new TokenValidationParameters()
+            //    {
+            //        ValidIssuer = Configuration["Tokens:Issuer"],
+            //        ValidAudience = Configuration["Tokens:Audience"],
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+            //    };
+            //});
+
+            //services.AddDbContext<ApplicationDbContext>();
+            //services.AddDbContext(Configuration); //<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:GlobalTourismConnectionStr"]));
+            //services.AddScopedServices();
+            //services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            //services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            //services.AddScoped<IDevelopersService, DevelopersService>();
+            //services.AddTransient<SeedData>();
+            //services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +106,7 @@ namespace GlobalTour
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

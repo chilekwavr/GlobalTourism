@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GlobalTour.ApplicationCore\GlobalTour.ApplicationCore.csproj" />
+    <ProjectReference Include="..\GlobalTour.Services\GlobalTour.Services.csproj" />
     <ProjectReference Include="..\WorldTour.Infrastructure\WorldTour.Infrastructure.csproj" />
   </ItemGroup>
 
