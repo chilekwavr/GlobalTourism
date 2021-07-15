@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalTour.ApplicationCore"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalTour.Services", "GlobalTour.Services\GlobalTour.Services.csproj", "{8DA4354D-9CAC-41D9-BEB4-3A1C51A3D7D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalTourAPI", "GlobalTourAPI\GlobalTourAPI.csproj", "{925DA7B7-8423-4B4A-99BB-99137456AE96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalTourAPI", "GlobalTourAPI\GlobalTourAPI.csproj", "{925DA7B7-8423-4B4A-99BB-99137456AE96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalTourAPI.Services", "GlobalTourAPI.Services\GlobalTourAPI.Services.csproj", "{A830B75A-ED0C-46B7-A8AA-0E65E7C2AE8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{925DA7B7-8423-4B4A-99BB-99137456AE96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A830B75A-ED0C-46B7-A8AA-0E65E7C2AE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A830B75A-ED0C-46B7-A8AA-0E65E7C2AE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A830B75A-ED0C-46B7-A8AA-0E65E7C2AE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A830B75A-ED0C-46B7-A8AA-0E65E7C2AE8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

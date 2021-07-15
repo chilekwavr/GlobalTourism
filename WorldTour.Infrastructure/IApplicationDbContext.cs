@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WorldTour.Infrastructure
 {
@@ -16,5 +17,7 @@ namespace WorldTour.Infrastructure
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<ContactDetail> ContactDetails { get; set; }
         public DbSet<PersonName> PersonNames { get; set; }
+
+        Task<int> SaveChangesAsync();
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 using WorldTour.Infrastructure;
 
 namespace Infrastructure
@@ -41,6 +42,12 @@ namespace Infrastructure
             //{
                 optionsBuilder.UseSqlServer(_config["ConnectionStrings:GlobalTourismConnectionStr"]); //can use _config.ConnectionStrng() but assumes you ConnectionString in config file
             //}
+        }
+
+        //used in API mediator pattern
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
         }
 
         //public DbSet<Address> Addresses { get; set; }
