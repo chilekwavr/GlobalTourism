@@ -1,10 +1,31 @@
-﻿using System;
+﻿using ApplicationCore.Entities;
+using MediatR;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using WorldTour.Infrastructure;
 
 namespace GlobalTourAPI.Services.Features.CustomerFeatures.Queries
 {
-    class GetCustomerByIdQuery
+    public class GetCustomerByIdQuery : IRequest<Customer>
     {
+        public int Id { get; set; }
+        public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery, Customer>
+        {
+            private readonly IApplicationDbContext _context;
+            public GetCustomerByIdQueryHandler(IApplicationDbContext context)
+            {
+                _context = context;
+            }
+            public async Task<Customer> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
+            {
+                var customer = _context.Customers.Where(a => a.Id == request.Id).FirstOrDefault();
+                if (customer == null) return null;
+                return customer;
+            }
+        }
     }
 }

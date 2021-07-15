@@ -25,6 +25,15 @@ namespace GlobalTourAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("Bearer")
+            .AddIdentityServerAuthentication("Bearer", options =>
+            {
+                            // options.ApiName = "myApi";
+                            // options.Authority = "https://localhost:44330";
+                            options.ApiName = "testApi";
+                options.Authority = "https://globaltourismidserver.azurewebsites.net";
+
+            });
             services.AddDbContext(Configuration);
             services.AddScopedServices();
             services.AddTransientServices();
@@ -44,7 +53,7 @@ namespace GlobalTourAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.ConfigureSwagger();

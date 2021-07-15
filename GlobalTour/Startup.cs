@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
+using System.Reflection;
 
 namespace GlobalTour
 {
@@ -26,6 +26,7 @@ namespace GlobalTour
             services.AddDbContext(Configuration); 
             services.AddScopedServices();
             services.AddTransientServices();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews();
 
             // services.AddIdentity<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:GlobalTourismConnectionStr"]));

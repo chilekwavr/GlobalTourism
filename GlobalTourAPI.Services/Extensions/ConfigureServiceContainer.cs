@@ -1,4 +1,6 @@
 ﻿using ApplicationCore.Interfaces;
+using GlobalTourAPI.Services.Contract;
+using GlobalTourAPI.Services.Implementation;
 using Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +36,7 @@ namespace GlobalTourAPI.Services.Extensions
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
+            serviceCollection.AddTransient<IEmailService, MailService>();
             //serviceCollection.AddTransient<SeedData>();
         }
 
