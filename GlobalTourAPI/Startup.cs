@@ -6,6 +6,10 @@ using Microsoft.Extensions.Hosting;
 using GlobalTourAPI.Services.Extensions;
 using MediatR;
 using System.Reflection;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace GlobalTourAPI
 {
@@ -24,6 +28,8 @@ namespace GlobalTourAPI
             services.AddDbContext(Configuration);
             services.AddScopedServices();
             services.AddTransientServices();
+            services.AddHealthCheck(Configuration);
+            services.AddSwaggerOpenAPI();
             services.AddController();
         }
 
@@ -40,6 +46,25 @@ namespace GlobalTourAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.ConfigureSwagger();
+
+            app.UseHealthChecks("/healthz", new HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status500InternalServerError,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
+                },
+            }).UseHealthChecksUI(setup =>
+            {
+                setup.ApiPath = "/healthcheck";
+                setup.UIPath = "/healthcheck-ui";
+                //setup.AddCustomStylesheet("Customization/custom.css");
+            });
 
             app.UseEndpoints(endpoints =>
             {

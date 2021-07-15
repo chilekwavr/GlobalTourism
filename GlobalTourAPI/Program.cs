@@ -26,15 +26,26 @@ namespace GlobalTourAPI
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((context, config) =>
+             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration(SetUpConfiguration)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+
+        private static void SetUpConfiguration(HostBuilderContext context, IConfigurationBuilder config)
+        {
+            var envVault = Environment.GetEnvironmentVariable("VaultUri");
+            if (envVault != null)
             {
                 var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-                config.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-            })
-                            .ConfigureWebHostDefaults(webBuilder =>
-                            {
-                                webBuilder.UseStartup<Startup>();
-                            });
+                config.AddAzureKeyVault(
+                keyVaultEndpoint,
+                new DefaultAzureCredential());
+            }
+            //config.SetBasePath(Directory.GetCurrentDirectory());
+            //config.AddJsonFile("appSettings.json", optional: false, reloadOnChange: true);
+            //config.AddEnvironmentVariables();
+        }
     }
-    }
+ }
